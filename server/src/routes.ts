@@ -1,6 +1,7 @@
 import { FastifyRequest, FastifyReply, FastifyInstance, FastifyPluginOptions } from "fastify";
 import { CreateBookController } from "./controllers/CreateBookController";
 import { ListBookController } from "./controllers/ListBookController";
+import { DeleteBookController } from "./controllers/DeleteBookController";
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
 
@@ -15,5 +16,9 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
   fastify.get("/list-book", async (req: FastifyRequest, res: FastifyReply) => {
     return new ListBookController().handle(req, res);
+  })
+
+  fastify.delete("/delete-book", async (req: FastifyRequest, res: FastifyReply) => {
+    return new DeleteBookController().handle(req, res);
   })
 }
