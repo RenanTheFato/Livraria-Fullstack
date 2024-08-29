@@ -22,7 +22,8 @@ class CreateUserController {
     const countEmail = (emailFind as any)[0].count;
     
     if (countEmail > 0) {
-      throw new Error('Email já está cadastrado');
+      throw res.status(401).send({ error: 'Email já está cadastradoizado!' });;
+      
     }
 
     const hashPass = await bcrypt.hash(senha, 10);

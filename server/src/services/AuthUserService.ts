@@ -28,7 +28,7 @@ class AuthUserService{
     const {senha: _, ...userLogin} = verifyUser
     
     console.log({userLogin: userLogin, token: token});
-    return { userLogin, token };
+    return { user: userLogin, token: token };
   }
 }
 

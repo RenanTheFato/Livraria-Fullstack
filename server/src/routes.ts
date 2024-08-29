@@ -4,6 +4,8 @@ import { ListBookController } from "./controllers/ListBookController";
 import { DeleteBookController } from "./controllers/DeleteBookController";
 import { CreateUserController } from "./controllers/CreateUserController";
 import { AuthUserController } from "./controllers/AuthUserCotroller";
+import { LoginUserController } from "./controllers/LoginUserController";
+import { authUserMiddleware } from "./middlewares/authUserMiddleware";
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
 
@@ -30,5 +32,9 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
   fastify.post("/login-user", async (req: FastifyRequest, res: FastifyReply) => {
     return new AuthUserController().handle(req, res);
+  })
+
+  fastify.get("/user-profile", {preHandler: authUserMiddleware}, async (req: FastifyRequest, res: FastifyReply) => {
+    return new LoginUserController().handle(req, res);
   })
 }

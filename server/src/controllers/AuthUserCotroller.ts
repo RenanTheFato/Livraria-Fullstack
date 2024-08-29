@@ -1,6 +1,5 @@
 import { FastifyRequest, FastifyReply  } from 'fastify'
 import { AuthUserService } from '../services/AuthUserService'
-import { databaseConnect } from '../database/connection';
 
 class AuthUserController{
   async handle(req: FastifyRequest, res: FastifyReply){
