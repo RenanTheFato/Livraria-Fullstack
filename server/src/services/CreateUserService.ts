@@ -11,6 +11,20 @@ class CreateUserService{
   async execute({ nome, email, senha}: CreateUserProps){
     console.log("Rota de Criação de Usuário executada!");
 
+    try {
+      const [result] = await databaseConnect.query(`INSERT INTO ${process.env.TABLE2} (nome, email, senha) VALUES (?, ?, ?);`, [nome, email, senha] );
+
+      const referenceId = (result as any).referenceId;
+
+      console.log(result)
+      return{ id: referenceId, nome, email};
+
+    } catch (error) {
+
+      console.error(error);
+      throw error;
+
+    }
     
   }
 }
