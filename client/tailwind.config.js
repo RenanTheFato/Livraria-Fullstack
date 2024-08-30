@@ -10,7 +10,8 @@ export default {
         roboto: ['Roboto-Regular', 'sans-serif'],
         'roboto-medium': ['Roboto-Medium', 'sans-serif'],
         'roboto-black': ['Roboto-Black', 'sans-serif'],
-        'roboto-italic': ['Roboto-Italic', 'sans-serif']
+        'roboto-italic': ['Roboto-Italic', 'sans-serif'],
+        'roboto-bold': ['Roboto-Bold', 'sans-serif']
       },
       colors: {
         transparent: 'transparent',

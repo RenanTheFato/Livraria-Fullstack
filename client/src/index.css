@@ -29,3 +29,10 @@
   font-style: normal;
   font-display: swap;
 }
+
+@font-face {
+  font-family: "Roboto-Bold";
+  src: url("./fonts/Roboto/Roboto-Bold.ttf") format("ttf");
+  font-style: normal;
+  font-display: swap;
+}
