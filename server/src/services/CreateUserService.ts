@@ -19,10 +19,10 @@ class CreateUserService{
       console.log(result)
       return{ id: referenceId, nome, email};
 
-    } catch (error) {
+    } catch (err: any) {
 
-      console.error(error);
-      throw error;
+      console.error(err);
+      throw err;
 
     }
     

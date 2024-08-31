@@ -11,24 +11,33 @@ class CreateUserController {
     const createUserService = new CreateUserService();
 
     const userValidation = z.object({
-      nome: z.string().min(3),
-      email: z.string().email({ message: "Email Inválido!"}).min(5),
-      senha: z.string()
+      nome: z.string().min(3, {message: "Nome não atende ao mínimo de caracters"}),
+      email: z.string().email({ message: "Email Inválido!"}).min(5, {message: "Email não atende ao mínimo de caracters"}),
+      senha: z.string().min(6, {message: "Senha não atende ao mínimo de caracters"})
     })
 
-    const verifyUser = userValidation.parse(req.body);
+    try {
+      userValidation.parse(req.body);
+    } catch (err: any) {
+      return res.status(400).send({ error: err.errors });
+    }
 
     const [emailFind] = await databaseConnect.query('SELECT COUNT(*) AS count FROM usuarios WHERE email = ?', [email]);
     const countEmail = (emailFind as any)[0].count;
     
     if (countEmail > 0) {
-      throw res.status(401).send({ error: 'Email já está cadastradoizado!' });;
+      return res.status(401).send({ error: 'Email já está cadastradoizado!' });;
       
     }
 
     const hashPass = await bcrypt.hash(senha, 10);
 
-    const createUser = await createUserService.execute({nome, email, senha: hashPass});
+     try {
+      await createUserService.execute({ nome, email, senha: hashPass });
+      res.status(200).send({ message: 'Usuário criado com sucesso!' });
+    } catch (err) {
+      res.status(500).send({ error: 'Erro ao criar usuário. Tente novamente.' });
+    }
 
   }
 }
