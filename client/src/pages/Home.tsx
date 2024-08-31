@@ -82,7 +82,7 @@ function HomePage() {
           </div>
         </nav>
         {isDropdownOpen && (
-          <div className="animate-in fade-in-30 ease-in-out delay-0 duration-
+          <div className="animate-in fade-in-30 ease-in-out delay-0 duration-300
           absolute right-0 w-48 bg-white shadow-lg rounded-md z-10">
             <div
               className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center"
