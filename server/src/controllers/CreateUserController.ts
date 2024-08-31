@@ -22,7 +22,7 @@ class CreateUserController {
       return res.status(400).send({ error: err.errors });
     }
 
-    const [emailFind] = await databaseConnect.query('SELECT COUNT(*) AS count FROM usuarios WHERE email = ?', [email]);
+    const [emailFind] = await databaseConnect.query(`SELECT COUNT(*) AS count FROM ${process.env.TABLE2} WHERE email = ?`, [email]);
     const countEmail = (emailFind as any)[0].count;
     
     if (countEmail > 0) {

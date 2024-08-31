@@ -10,9 +10,9 @@ class AuthUserController{
 
     try {
       const user = await authUserService.execute({email, senha});
-      res.status(200)
+      res.status(200).send({user})
     } catch (error) {
-      res.status(400);
+      res.status(401).send({error: 'Credenciais Não Autorizadas.'});
       throw error;
     }
   }

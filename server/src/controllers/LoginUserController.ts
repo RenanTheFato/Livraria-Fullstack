@@ -3,8 +3,12 @@ import 'dotenv'
 
 class LoginUserController{
   async handle(req: FastifyRequest, res: FastifyReply){
-    return req.user;
+    if (req.user) {
+      return res.send(req.user); // Retorne os dados do usuário autenticado
+    } else {
+      return res.status(401).send({ error: 'Não Autorizado!' });
   }
+}
 }
 
 export { LoginUserController }
