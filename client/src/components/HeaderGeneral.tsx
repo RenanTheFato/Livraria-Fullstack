@@ -1,20 +1,30 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaSearch, FaUser, FaUserCircle, FaBook } from "react-icons/fa";
 
-
 function Header() {
-
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
 
-  const handleDropdownToggle = () => {
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    setIsAuthenticated(!!token);
+  }, []);
+
+  function handleDropdownToggle() {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const handleNavigate = (path: string) => {
+  function handleNavigate(path: string) {
     navigate(path);
     setIsDropdownOpen(false);
+  };
+
+  function handleLogout(){
+    localStorage.removeItem("authToken");
+    setIsAuthenticated(false);
+    navigate("/");
   };
 
   return (
@@ -55,18 +65,37 @@ function Header() {
           className="animate-in fade-in-30 ease-in-out delay-0 duration-300
           absolute right-0 w-48 bg-white shadow-lg rounded-md z-10"
         >
-          <div
-            className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center"
-            onClick={() => handleNavigate("/user-login")}
-          >
-            <FaUserCircle className="mr-2" /> Login de Usuário
-          </div>
-          <div
-            className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center"
-            onClick={() => handleNavigate("/editor-login")}
-          >
-            <FaBook className="mr-2" /> Login de Editora
-          </div>
+          {isAuthenticated ? (
+            <>
+              <div
+                className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center"
+                onClick={() => handleNavigate("/user-profile")}
+              >
+                <FaUserCircle className="mr-2" /> Meu Perfil
+              </div>
+              <div
+                className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center"
+                onClick={handleLogout}
+              >
+                <FaUserCircle className="mr-2" /> Logout
+              </div>
+            </>
+          ) : (
+            <>
+              <div
+                className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center"
+                onClick={() => handleNavigate("/user-login")}
+              >
+                <FaUserCircle className="mr-2" /> Login de Usuário
+              </div>
+              <div
+                className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center"
+                onClick={() => handleNavigate("/editor-login")}
+              >
+                <FaBook className="mr-2" /> Login de Editora
+              </div>
+            </>
+          )}
         </div>
       )}
     </header>
