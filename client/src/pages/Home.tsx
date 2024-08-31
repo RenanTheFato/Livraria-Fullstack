@@ -1,8 +1,8 @@
-import { FaSearch } from "react-icons/fa";
-import { FaUser } from "react-icons/fa";
+import { FaSearch, FaUser, FaUserCircle, FaBook } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { api } from "../service/api";
 import "../index.css";
+import { useNavigate } from "react-router-dom";
 
 interface BookProps {
   id: number;
@@ -14,6 +14,8 @@ interface BookProps {
 function HomePage() {
   const [books, setBooks] = useState<BookProps[]>([]);
   const [displayedItems, setDisplayedItems] = useState<BookProps[]>([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadBooks();
@@ -36,10 +38,19 @@ function HomePage() {
     }
   }
 
+  const handleDropdownToggle = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleNavigate = (path: string) => {
+    navigate(path);
+    setIsDropdownOpen(false);
+  };
+
   return (
     <div className="w-full min-h-screen bg-stone-300 md:max-2xl">
       <header className="bg-cyan-600 shadow-lg md:max-2xl">
-        <nav className="flex flex-row md:mx-auto">
+        <nav className="flex flex-row md:mx-auto items-center">
           <div>
             <img className="w-16 mx-3" src="./src/assets/logo.svg" alt="Logo" />
           </div>
@@ -61,10 +72,32 @@ function HomePage() {
               <FaSearch fill="#FFFFFF" />
             </button>
           </div>
-          <div className="h-14 my-1 px-5 absolute right-0 mx-4 flex items-center rounded-full bg-indigo-400 shadow-xl hover:cursor-pointer">
-            <FaUser fill="#FFFFFF" />
+          <div className="relative flex items-center ml-auto">
+            <div
+              className="h-14 my-1 px-5 flex items-center hover:cursor-pointer"
+              onClick={handleDropdownToggle}
+            >
+              <FaUser fill="#FFFFFF" />
+            </div>
           </div>
         </nav>
+        {isDropdownOpen && (
+          <div className="animate-in fade-in-30 ease-in-out delay-0 duration-
+          absolute right-0 w-48 bg-white shadow-lg rounded-md z-10">
+            <div
+              className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center"
+              onClick={() => handleNavigate("/user-login")}
+            >
+              <FaUserCircle className="mr-2" /> Login de Usuário
+            </div>
+            <div
+              className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center"
+              onClick={() => handleNavigate("/editor-login")}
+            >
+              <FaBook className="mr-2" /> Login de Editora
+            </div>
+          </div>
+        )}
       </header>
 
       <div className="flex justify-center items-center">
@@ -80,29 +113,28 @@ function HomePage() {
 
         <div className="flex justify-center items-center py-10">
           <section className="w-11/12 h-72 flex flex-row space-x-10 py-2 px-2 rounded-xl bg-gradient-to-t from-slate-200 to-slate-300">
-            {displayedItems.map((item) => (
+            {displayedItems.map((books) => (
               <article
-                key={item.id}
+                key={books.id}
                 className="h-full w-72 bg-white rounded p-2 relative shadow-xl shadow-indigo-300
               hover:scale-105 duration-200"
               >
                 <p>
                   <span className="font-medium">Título: </span>
-                  {item.titulo}
+                  {books.titulo}
                 </p>
                 <p>
                   <span className="font-medium">Autor: </span>
-                  {item.autor}
+                  {books.autor}
                 </p>
                 <p>
                   <span className="font-medium">Editora: </span>
-                  {item.editora}
+                  {books.editora}
                 </p>
               </article>
             ))}
           </section>
         </div>
-        
       </div>
     </div>
   );
