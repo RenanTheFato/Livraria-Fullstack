@@ -24,6 +24,7 @@ function Header() {
   function handleLogout(){
     localStorage.removeItem("authToken");
     setIsAuthenticated(false);
+    window.location.reload()
     navigate("/");
   };
 

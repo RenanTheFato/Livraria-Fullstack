@@ -12,16 +12,17 @@ interface CreateBookProps{
   classificacao: string,
   paginas: number,
   editora: string,
-  ano_pub: number
+  ano_pub: number,
+  preco: number
 }
 
 class CreateBookService{
-  async execute({titulo, descricao, autor, categoria ,classificacao, paginas, editora, ano_pub}: CreateBookProps){
+  async execute({titulo, descricao, autor, categoria ,classificacao, paginas, editora, ano_pub, preco}: CreateBookProps){
     console.log('Rota de Criação Executada!');
 
     try {
-    const [result] = await databaseConnect.query(`INSERT INTO ${process.env.TABLE1} (titulo, descricao, autor, categoria,classificacao, paginas, editora, ano_pub) 
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?);`, [titulo, descricao, autor, categoria ,classificacao, paginas, editora, ano_pub] );
+    const [result] = await databaseConnect.query(`INSERT INTO ${process.env.TABLE1} (titulo, descricao, autor, categoria,classificacao, paginas, editora, ano_pub, preco) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`, [titulo, descricao, autor, categoria ,classificacao, paginas, editora, ano_pub, preco] );
 
       const referenceId = (result as any).referenceId;
 
