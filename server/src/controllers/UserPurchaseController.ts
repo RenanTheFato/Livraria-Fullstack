@@ -1,31 +1,39 @@
-import { FastifyRequest, FastifyReply } from 'fastify';
-import { UserCartService } from '../services/UserCartService';
-import { UserPurchaseService } from '../services/UserPurchaseService';
+// import { FastifyRequest, FastifyReply } from 'fastify';
+// import { UserPurchaseService } from '../services/UserPurchaseService';
 
-class UserPurchaseController {
-  async handle(req: FastifyRequest, res: FastifyReply) {
-    if (!req.user || typeof req.user.id !== 'number') {
-      return res.status(401).send({ error: 'Não Autorizado!' });
-    }
-    const id_usuario = req.user.id;
+// class UserPurchaseController {
+//   async handle(req: FastifyRequest, res: FastifyReply) {
+//     if (!req.user || typeof req.user.id !== 'number') {
+//       return res.status(401).send({ error: 'Não Autorizado!' });
+//     }
 
-    const cartService = new UserCartService();
-    const cartItems = await cartService.getCartItems(id_usuario);
+//     const id_usuario = req.user.id;
+//     const purchaseService = new UserPurchaseService();
 
-    if (cartItems.length === 0) {
-      return res.status(400).send({ error: 'O carrinho está vazio' });
-    }
+//     try {
+//       const result = await purchaseService.execute(id_usuario);
+//       console.log(result)
+//       return res.status(200).send(result);
+//     } catch (error) {
+//       return res.status(500).send({ error: 'Erro ao processar a compra' });
+//     }
+//   }
+//   async handlePurchases(req: FastifyRequest, res: FastifyReply){
+//     if (!req.user || typeof req.user.id !== 'number') {
+//       return res.status(401).send({ error: 'Não Autorizado!' });
+//     }
+  
+//     const id_usuario = req.user.id;
+//     const purchaseService = new UserPurchaseService();
+  
+//     try {
+//       const purchases = await purchaseService.getUserPurchases(id_usuario);
+//       console.log(purchases)
+//       return res.status(200).send(purchases);
+//     } catch (error) {
+//       return res.status(500).send({ error: 'Erro ao obter compras' });
+//     }
+//   }
+// }
 
-    const checkoutService = new UserPurchaseService();
-
-    try {
-      await checkoutService.execute(cartItems, id_usuario);
-      await cartService.clearCart(id_usuario);
-      return res.status(200).send({ message: 'Compra realizada com sucesso' });
-    } catch (error) {
-      return res.status(500).send({ error: 'Erro ao processar a compra' });
-    }
-  }
-}
-
-export { UserPurchaseController };
+// export { UserPurchaseController };
