@@ -7,7 +7,6 @@ import { AuthUserController } from "./controllers/AuthUserCotroller";
 import { LoginUserController } from "./controllers/LoginUserController";
 import { authUserMiddleware } from "./middlewares/authUserMiddleware";
 // import { UserPurchaseController } from "./controllers/UserPurchaseController";
-// import { UserCartController } from "./controllers/UserCartController";
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
 
@@ -40,23 +39,7 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     return new LoginUserController().handle(req, res);
   })
 
-  // fastify.get('/cart', { preHandler: authUserMiddleware }, async (req: FastifyRequest, res: FastifyReply) => {
-  //   return new UserCartController().getCart(req, res);
-  // });
-
-  // fastify.post('/cart-add', { preHandler: authUserMiddleware }, async (req: FastifyRequest, res: FastifyReply) => {
-  //    new UserCartController().addToCart(req, res);
-  // });
-
-  // fastify.post('/cart/remove', { preHandler: authUserMiddleware }, async (req: FastifyRequest, res: FastifyReply) => {
-  //    new UserCartController().removeFromCart(req, res);
-  // });
-
-  // fastify.post('/user-purchase', { preHandler: authUserMiddleware }, async (req: FastifyRequest, res: FastifyReply) => {
-  //    new UserPurchaseController().handle(req, res);
-  // });
-
-  // fastify.get('/user-purchases', { preHandler: authUserMiddleware }, async (req: FastifyRequest, res: FastifyReply) => {
-  //   return new UserPurchaseController().handlePurchases(req, res);
-  // });
+  // fastify.post("/user-purchase", {preHandler: authUserMiddleware}, async (req: FastifyRequest, res: FastifyReply) => {
+  // return new UserPurchaseController().handle(req, res);
+  // })
 }

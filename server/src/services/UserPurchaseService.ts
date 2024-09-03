@@ -1,65 +1,51 @@
 // import { databaseConnect } from "../database/connection";
-// import { UserCartService } from "./UserCartService";
-// import { ResultSetHeader } from "mysql2";
+// import { RowDataPacket } from 'mysql2';
+
+// interface Product {
+//   id: number;
+//   titulo: string;
+//   preco: number;
+// }
 
 // class UserPurchaseService {
-//   async execute(id_usuario: number) {
+//   async execute(id_usuario: number, id_livro: number, quantidade: number) {
+//     const connection = await databaseConnect.getConnection();
 
 //     try {
+//       await connection.beginTransaction();
 
-//       const userCartService = new UserCartService();
-//       const cartItems = await userCartService.getCartItems(id_usuario);
+//       const [productRows] = await connection.query<RowDataPacket[]>(
+//         'SELECT * FROM livros WHERE id = ?',
+//         [id_livro]
+//       );
 
-//       if (cartItems.length === 0) {
-//         throw new Error('Carrinho vazio');
+//       const products: Product[] = productRows.map(row => ({
+//         id: row.id,
+//         titulo: row.titulo,
+//         preco: row.preco,
+//       }));
+
+//       const product = products[0];
+
+//       if (!product) {
+//         throw new Error('Produto não encontrado.');
 //       }
 
-//       const [result] = await databaseConnect.query<ResultSetHeader>(`
-//         INSERT INTO compras (id_usuario, data_compra) VALUES (?, NOW())
-//       `, [id_usuario]);
+//       const totalPrice = product.preco * quantidade;
+//       await connection.query(
+//         'INSERT INTO pedidos (id_usuario, id_livro, quantidade, valor_total) VALUES (?, ?, ?, ?)',
+//         [id_usuario, id_livro, quantidade, totalPrice]
+//       );
 
-//       const id_compra = result.insertId;
+//       await connection.commit();
 
-//       for (const item of cartItems) {
-//         const { id_livro, quantidade } = item;
-
-//         const [bookRows] = await databaseConnect.query(`SELECT preco FROM livros WHERE id = ?`, [id_livro]);
-//         const book = (bookRows as any)[0];
-        
-//         if (!book) {
-//           throw new Error('Livro não encontrado');
-//         }
-
-//         console.log(`Iniciando inserção para compra ID: ${id_compra}`);
-//         console.log(`Processando livro ID: ${id_livro} com quantidade: ${quantidade} e preço: ${book.preco}`);
-
-//         const result2 = await databaseConnect.query(`
-//           INSERT INTO vendas (id_compra, id_livro, quantidade, valor_total)
-//           VALUES (?, ?, ?, ?)
-//         `, [id_compra, id_livro, quantidade, book.preco * quantidade]);
-
-//         console.log(`Inserção completa para livro ID: ${id_livro}, Resultado: `, result2);
-//       }
-
-
-//       await userCartService.clearCart(id_usuario);
-
-//       return { message: 'Compra realizada com sucesso', id_compra };
+//       return { message: 'Compra realizada com sucesso.' };
 //     } catch (error) {
+//       await connection.rollback();
 //       throw error;
+//     } finally {
+//       connection.release();
 //     }
-//   }
-
-//   async getUserPurchases(id_usuario: number) {
-//     const [rows] = await databaseConnect.query(`
-//       SELECT c.id AS compra_id, c.data_compra, v.id_livro, v.quantidade, v.valor_total, l.titulo 
-//       FROM compras c
-//       JOIN vendas v ON c.id = v.id_compra
-//       JOIN livros l ON v.id_livro = l.id
-//       WHERE c.id_usuario = ?
-//     `, [id_usuario]);
-
-//     return rows;
 //   }
 // }
 

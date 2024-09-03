@@ -91,7 +91,7 @@ function Header() {
               </div>
               <div
                 className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center"
-                onClick={() => handleNavigate("/editor-login")}
+                onClick={() => handleNavigate("/publisher-login")}
               >
                 <FaBook className="mr-2" /> Login de Editora
               </div>

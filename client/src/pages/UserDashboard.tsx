@@ -1,18 +1,26 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { MdHistory } from 'react-icons/md';
+import { TbLogout2 } from "react-icons/tb";
 import { FaUser } from 'react-icons/fa';
 import { userAuth } from '../hooks/UserAuthHook';
 
 function UserDashboard() {
   const userData = userAuth();
+  const navigate = useNavigate();
+
+
+  function handleLogout(){
+    localStorage.removeItem("authToken");
+    navigate("/");
+  };
 
   return (
     <>
       {userData ? (
         <main className="w-full min-h-screen bg-slate-500 flex flex-col">
 
-          <div className="w-full h-24 flex flex-row items-center bg-cyan-600 drop-shadow-xl">
+          <div className="w-full h-20 flex flex-row items-center bg-cyan-600 drop-shadow-xl">
             <div className="h-full mx-10 flex items-center text-5xl">
               <FaUser fill="white" />
             </div>
@@ -21,8 +29,8 @@ function UserDashboard() {
             </h1>
           </div>
 
-          <div className="flex-grow flex flex-row">
-            <aside className="w-60 bg-slate-300 text-black py-2 border-r-black border-r-2 shadow-xl my-1 mx-1 rounded-md">
+          <div className="flex-grow flex flex-row relative">
+            <aside className="w-60 bg-slate-300 text-black py-2 border-r-black border-r-2 shadow-xl my-1 mx-1 rounded-md relative">
               <nav className="flex flex-col space-y-2">
 
                 <Link to="user-history">
@@ -38,6 +46,12 @@ function UserDashboard() {
                     <span className="font-roboto text-lg">Página 2</span>
                   </div>
                 </Link>
+
+                <div className="flex items-center space-x-2 w-full h-20 absolute bottom-2 border-b-slate-50 border-b-2 border-t-slate-50 border-t-2 bg-red-500 text-white cursor-pointer" onClick={handleLogout}>
+                    <TbLogout2 className="text-2xl mx-2" />
+                    <span className="font-roboto text-lg">Logout</span>
+                    
+                </div>
 
               </nav>
             </aside>
