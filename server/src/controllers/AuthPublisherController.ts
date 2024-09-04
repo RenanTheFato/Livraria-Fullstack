@@ -4,7 +4,7 @@ import { AuthPublisherService } from '../services/AuthPublisherService'
 class AuthPublisherController{
   async handle(req: FastifyRequest, res: FastifyReply){
 
-    const {CNPJ, email, senha} = req.body as {CNPJ:number , email: string, senha: string};
+    const {CNPJ, email, senha} = req.body as {CNPJ:string , email: string, senha: string};
 
     const authPublisherService = new AuthPublisherService();
 

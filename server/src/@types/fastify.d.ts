@@ -15,7 +15,7 @@ declare module 'fastify' {
   export interface FastifyRequest {
     publisher: Partial<{
       id: number,
-      CNPJ: number,
+      CNPJ: string,
       nome: string,
       email: string,
       senha: string,

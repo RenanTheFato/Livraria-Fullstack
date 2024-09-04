@@ -5,11 +5,14 @@ import { FaSearch, FaUser, FaUserCircle, FaBook } from "react-icons/fa";
 function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userType, setUserType] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
+    const type = localStorage.getItem("userType");
     setIsAuthenticated(!!token);
+    setUserType(type);
   }, []);
 
   function handleDropdownToggle() {
@@ -21,10 +24,12 @@ function Header() {
     setIsDropdownOpen(false);
   };
 
-  function handleLogout(){
+  function handleLogout() {
     localStorage.removeItem("authToken");
+    localStorage.removeItem("userType");
     setIsAuthenticated(false);
-    window.location.reload()
+    setUserType(null);
+    window.location.reload();
     navigate("/");
   };
 
@@ -70,7 +75,7 @@ function Header() {
             <>
               <div
                 className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center"
-                onClick={() => handleNavigate("/user-profile")}
+                onClick={() => handleNavigate(userType === "publisher" ? "/publisher-profile" : "/user-profile")}
               >
                 <FaUserCircle className="mr-2" /> Meu Perfil
               </div>

@@ -4,24 +4,32 @@ import jwt from 'jsonwebtoken';
 import 'dotenv'
 
 interface AuthPublisherProps{
-  CNPJ: number,
+  CNPJ: string,
   email: string,
   senha: string
 }
 
 class AuthPublisherService{
-  async execute({ CNPJ, senha}: AuthPublisherProps){
+  async execute({ CNPJ, email, senha}: AuthPublisherProps){
+    const [verifyEmail] = await databaseConnect.query(`SELECT * FROM ${process.env.TABLE5} WHERE email = ?`, [email]);
+    const verifyPublisherEmail = (verifyEmail as any)[0];
+
+    if(!verifyPublisherEmail){
+      throw new Error("Cnpj, email ou senha inválidos!");
+    }
+    
     const [verifyCnpj] = await databaseConnect.query(`SELECT * FROM ${process.env.TABLE5} WHERE CNPJ = ?`, [CNPJ]);
     const verifyPublisher = (verifyCnpj as any)[0];
 
     if(!verifyPublisher){
-      throw new Error("Email ou senha inválidos!");
+      throw new Error("Cnpj, email ou senha inválidos!");
     }
+
 
     const verifyPass = await bcrypt.compare(senha, verifyPublisher.senha);
 
     if (!verifyPass) {
-      throw new Error("Email ou senha inválidos!");
+      throw new Error("Cnpj, email ou senha inválidos!");
     }
 
     const token = jwt.sign({ id: verifyPublisher.id }, process.env.JWTPASS ?? '', { expiresIn: '3d' });

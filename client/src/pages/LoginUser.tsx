@@ -77,6 +77,7 @@ function LoginUser() {
         const { token } = res.data.user;
         console.log(res.data)
         localStorage.setItem("authToken", token);
+        localStorage.setItem("userType", "user");
         console.log(token);
         window.location.href = "/";
       }

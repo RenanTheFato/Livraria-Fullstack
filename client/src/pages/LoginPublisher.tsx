@@ -3,12 +3,14 @@ import { api } from "../service/api";
 
 function LoginPublisher() {
   const [isLogin, setIsLogin] = useState(true);
+  const [cnpj, setCnpj] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [error, setError] = useState<{ [key: string]: string }>({});
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
+  const cnpjRef = useRef<HTMLInputElement | null>(null)
   const nameRef = useRef<HTMLInputElement | null>(null);
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passRef = useRef<HTMLInputElement | null>(null);
@@ -28,6 +30,10 @@ function LoginPublisher() {
 
     let hasError = false;
 
+    if (!cnpjRef.current?.value) {
+      hasError = true;
+    }
+
     if (!nameRef.current?.value) {
       hasError = true;
     }
@@ -41,7 +47,8 @@ function LoginPublisher() {
     if (hasError) return;
 
     try {
-      const res = await api.post("/create-user", {
+      const res = await api.post("/create-publisher", {
+        CNPJ: cnpjRef.current?.value,
         nome: nameRef.current?.value,
         email: emailRef.current?.value,
         senha: passRef.current?.value,
@@ -68,15 +75,17 @@ function LoginPublisher() {
     setError({});
 
     try {
-      const res = await api.post("/login-user", {
+      const res = await api.post("/login-publisher", {
+        CNPJ: cnpjRef.current?.value,
         email: emailRef.current?.value,
         senha: passRef.current?.value,
       });
 
       if (res.status === 200) {
-        const { token } = res.data.user;
+        const { token } = res.data.publisher;
         console.log(res.data)
         localStorage.setItem("authToken", token);
+        localStorage.setItem("userType", "publisher");
         console.log(token);
         window.location.href = "/";
       }
@@ -90,7 +99,15 @@ function LoginPublisher() {
   function LoginForm() {
     return (
       <>
-        <form className="flex flex-col w-full px-10 my-16 space-y-10" onSubmit={handleLoginAccount}>
+        <form className="flex flex-col w-full px-10 my-16 space-y-8" onSubmit={handleLoginAccount}>
+          <input
+            type="text"
+            value={cnpj}
+            onChange={(e) => setCnpj(e.target.value.replace(/\D/g, ''))}
+            className="p-2 font-roboto rounded outline-none shadow-lg text-black focus:placeholder:text-black focus:shadow-amber-200 focus:outline-1 focus:outline-amber-200 "
+            placeholder="Insira seu CNPJ..."
+            ref={cnpjRef}
+          />
           <input
             type="email"
             value={email}
@@ -139,16 +156,16 @@ function LoginPublisher() {
     return (
       <>
         <form
-          className="flex flex-col w-full px-10 my-10 space-y-6"
+          className="flex flex-col w-full px-10 my-10 space-y-4"
           onSubmit={handleCreateAccount}
         >
            <input
-            type="number"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            type="text"
+            value={cnpj}
+            onChange={(e) => setCnpj(e.target.value.replace(/\D/g, ''))}
             className="p-2 font-roboto rounded outline-none shadow-lg text-black focus:placeholder:text-black focus:shadow-amber-200 focus:outline-1 focus:outline-amber-200"
             placeholder="Insira seu CNPJ..."
-            ref={nameRef}
+            ref={cnpjRef}
           />
 
           <input
@@ -156,7 +173,7 @@ function LoginPublisher() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="p-2 font-roboto rounded outline-none shadow-lg text-black focus:placeholder:text-black focus:shadow-amber-200 focus:outline-1 focus:outline-amber-200"
-            placeholder="Insira seu nome..."
+            placeholder="Insira o nome da editora..."
             ref={nameRef}
           />
 
@@ -202,6 +219,7 @@ function LoginPublisher() {
 
   function handleFormSwitch() {
     setIsLogin(!isLogin);
+    setCnpj("");
     setEmail("");
     setPassword("");
     setName("");

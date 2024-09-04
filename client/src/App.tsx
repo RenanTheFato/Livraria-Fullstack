@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/user-login" element={<LoginUser />} />
-        <Route path="publisher-login" element={<LoginPublisher />}/>
+        <Route path="/publisher-login" element={<LoginPublisher />}/>
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/user-profile" element={<UserDashboard />}>
           <Route path="user-history" element={<UserHistory />} />

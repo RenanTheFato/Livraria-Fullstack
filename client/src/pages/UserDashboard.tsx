@@ -12,6 +12,7 @@ function UserDashboard() {
 
   function handleLogout(){
     localStorage.removeItem("authToken");
+    localStorage.removeItem("userType");
     navigate("/");
   };
 

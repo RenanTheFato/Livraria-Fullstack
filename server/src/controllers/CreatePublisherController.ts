@@ -6,12 +6,12 @@ import { z } from 'zod'
 
 class CreatePublisherController {
   async handle(req: FastifyRequest, res: FastifyReply){
-    const {CNPJ, nome, email, senha} = req.body as {CNPJ: number, nome: string, email: string, senha: string};
+    const {CNPJ, nome, email, senha} = req.body as {CNPJ: string, nome: string, email: string, senha: string};
 
     const createPublisherService = new CreatePublisherService();
 
     const publisherValidation = z.object({
-      CNPJ: z.number().nonnegative().min(6, {message: "CNPJ não atende ao mínimo de caracters"}),
+      CNPJ: z.string().min(6, {message: "CNPJ não atende ao mínimo de caracters"}),
       nome: z.string().min(3, {message: "Nome não atende ao mínimo de caracters"}),
       email: z.string().email({ message: "Email Inválido!"}).min(5, {message: "Email não atende ao mínimo de caracters"}),
       senha: z.string().min(6, {message: "Senha não atende ao mínimo de caracters"})

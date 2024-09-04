@@ -2,7 +2,7 @@ import { databaseConnect } from "../database/connection";
 import 'dotenv'
 
 interface CreatePublisherProps{
-  CNPJ: number;
+  CNPJ: string;
   nome: string,
   email: string,
   senha: string
