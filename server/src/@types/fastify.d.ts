@@ -10,3 +10,15 @@ declare module 'fastify' {
     }>
   }
 }
+
+declare module 'fastify' {
+  export interface FastifyRequest {
+    publisher: Partial<{
+      id: number,
+      CNPJ: number,
+      nome: string,
+      email: string,
+      senha: string,
+    }>
+  }
+}

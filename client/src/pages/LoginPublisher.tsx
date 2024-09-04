@@ -95,7 +95,7 @@ function LoginPublisher() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="p-2 font-roboto rounded outline-none shadow-lg text-black focus:placeholder:text-black focus:shadow-cyan-300 focus:outline-1 focus:outline-teal-300"
+            className="p-2 font-roboto rounded outline-none shadow-lg text-black focus:placeholder:text-black focus:shadow-amber-200 focus:outline-1 focus:outline-amber-200 "
             placeholder="Insira seu email..."
             ref={emailRef}
           />
@@ -103,13 +103,13 @@ function LoginPublisher() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="p-2 font-roboto rounded outline-none shadow-lg text-black focus:placeholder:text-black focus:shadow-cyan-300 focus:outline-1 focus:outline-teal-300"
+            className="p-2 font-roboto rounded outline-none shadow-lg text-black focus:placeholder:text-black focus:shadow-amber-200 focus:outline-1 focus:outline-amber-200 "
             placeholder="Insira sua senha..."
             ref={passRef}
           />
           <input
             type="submit"
-            className="bg-blue-600 p-2 rounded font-bold font-roboto-bold text-sm cursor-pointer shadow-lg hover:bg-gradient-to-r hover:from-blue-600 hover:to-teal-400 hover:scale-105 hover:transition-all"
+            className="bg-amber-900 p-2 rounded font-bold font-roboto-bold text-sm cursor-pointer shadow-lg hover:bg-gradient-to-r hover:from-amber-900 hover:to-amber-700 hover:scale-105 hover:transition-all"
             value="ENTRAR"
           />
         </form>
@@ -125,7 +125,7 @@ function LoginPublisher() {
             Não tem um cadastro?
           </span>
           <span
-            className="text-blue-600 text-lg absolute right-0 mx-10 cursor-pointer"
+            className="text-amber-900 text-lg absolute right-0 mx-10 cursor-pointer"
             onClick={handleFormSwitch}
           >
             Crie Já!
@@ -139,14 +139,23 @@ function LoginPublisher() {
     return (
       <>
         <form
-          className="flex flex-col w-full px-10 my-10 space-y-8"
+          className="flex flex-col w-full px-10 my-10 space-y-6"
           onSubmit={handleCreateAccount}
         >
+           <input
+            type="number"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="p-2 font-roboto rounded outline-none shadow-lg text-black focus:placeholder:text-black focus:shadow-amber-200 focus:outline-1 focus:outline-amber-200"
+            placeholder="Insira seu CNPJ..."
+            ref={nameRef}
+          />
+
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="p-2 font-roboto rounded outline-none shadow-lg text-black focus:placeholder:text-black focus:shadow-cyan-300 focus:outline-1 focus:outline-teal-300"
+            className="p-2 font-roboto rounded outline-none shadow-lg text-black focus:placeholder:text-black focus:shadow-amber-200 focus:outline-1 focus:outline-amber-200"
             placeholder="Insira seu nome..."
             ref={nameRef}
           />
@@ -155,7 +164,7 @@ function LoginPublisher() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="p-2 font-roboto rounded outline-none shadow-lg text-black focus:placeholder:text-black focus:shadow-cyan-300 focus:outline-1 focus:outline-teal-300"
+            className="p-2 font-roboto rounded outline-none shadow-lg text-black focus:placeholder:text-black focus:shadow-amber-200 focus:outline-1 focus:outline-amber-200"
             placeholder="Insira seu email..."
             ref={emailRef}
           />
@@ -164,14 +173,14 @@ function LoginPublisher() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="p-2 font-roboto rounded outline-none shadow-lg text-black focus:placeholder:text-black focus:shadow-cyan-300 focus:outline-1 focus:outline-teal-300"
+            className="p-2 font-roboto rounded outline-none shadow-lg text-black focus:placeholder:text-black focus:shadow-amber-200 focus:outline-1 focus:outline-amber-200"
             placeholder="Crie uma senha..."
             ref={passRef}
           />
 
           <input
             type="submit"
-            className="bg-blue-600 p-2 rounded font-bold font-roboto-bold text-sm cursor-pointer shadow-lg hover:bg-gradient-to-r hover:from-blue-600 hover:to-teal-400 hover:scale-105 hover:transition-all"
+            className="bg-amber-900 p-2 rounded font-bold font-roboto-bold text-sm cursor-pointer shadow-lg hover:bg-gradient-to-r hover:from-amber-900 hover:to-amber-700 hover:scale-105 hover:transition-all"
             value="CADASTRAR"
           />
           {error.form && <p className="text-red-500">{error.form}</p>}
@@ -181,7 +190,7 @@ function LoginPublisher() {
             Já tem uma conta?
           </span>
           <span
-            className="text-blue-600 text-lg absolute right-0 mx-10 cursor-pointer"
+            className="text-amber-900 text-lg absolute right-0 mx-10 cursor-pointer"
             onClick={handleFormSwitch}
           >
             Faça login
@@ -200,16 +209,16 @@ function LoginPublisher() {
   }
 
   return (
-    <main className="w-full min-h-screen bg-[url('./src/assets/rainbow-vortex.svg')] bg-no-repeat bg-cover text-white flex flex-col">
+    <main className="w-full min-h-screen bg-[url('./src/assets/Icon-Grid.svg')] bg-no-repeat bg-cover text-white flex flex-col">
       <div className="flex flex-1">
         <aside className="w-2/5 bg-black bg-[url('./src/assets/loginPublisher.jfif')] bg-no-repeat bg-cover">
         </aside>
-        <aside className="w-3/5 bg-slate-200 border-l-2 border-l-white bg-opacity-30 flex justify-center items-center">
+        <aside className="w-3/5 bg-black border-l-2 border-l-white bg-opacity-60 flex justify-center items-center">
           <div className="w-8/12 h-5/6 rounded-lg bg-slate-300 shadow-xl text-center">
-            <h1 className="font-roboto-bold text-4xl my-8">
+            <h1 className="font-roboto-bold text-4xl my-6">
               {isLogin ? "LOGIN" : "CADASTRO"}
             </h1>
-            <p className="font-roboto-medium text-black text-justify mx-10 -my-5 text-xl">
+            <p className="font-roboto-medium text-black text-justify mx-10 -my-5 text-lg">
               Bem vindo a livraria Encanto! Explore um novo mundo recheado de
               histórias!
             </p>

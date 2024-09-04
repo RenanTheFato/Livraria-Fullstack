@@ -1,14 +1,14 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import 'dotenv'
 
-class LoginUserController {
+class LoginPublisherController {
   async handle(req: FastifyRequest, res: FastifyReply) {
-    if (req.user) {
-      return res.send(req.user);
+    if (req.publisher) {
+      return res.send(req.publisher);
     } else {
       return res.status(401).send({ error: 'Não Autorizado!' });
     }
   }
 }
 
-export { LoginUserController }
+export { LoginPublisherController }
