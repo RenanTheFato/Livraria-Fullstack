@@ -5,12 +5,14 @@ import LoginPublisher from './pages/LoginPublisher';
 import Unauthorized from './pages/Unauthorized';
 import UserDashboard from './pages/UserDashboard';
 import UserHistory from './pages/UserHistory';
+import BookPage from './pages/BookPage';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/book/:id" element={<BookPage />}/>
         <Route path="/user-login" element={<LoginUser />} />
         <Route path="/publisher-login" element={<LoginPublisher />}/>
         <Route path="/unauthorized" element={<Unauthorized />} />

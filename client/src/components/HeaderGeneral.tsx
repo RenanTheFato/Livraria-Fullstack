@@ -37,7 +37,7 @@ function Header() {
     <header className="bg-cyan-600 shadow-lg md:max-2xl relative">
       <nav className="flex flex-row md:mx-auto items-center">
         <div>
-          <img className="w-16 mx-3" src="./src/assets/logo.svg" alt="Logo" />
+          <img className="w-16 mx-3" src="/src/assets/logo.svg" alt="Logo" />
         </div>
         <h2 className="font-roboto-black text-sky-50 text-[1.5rem] my-3 mx-10 md:text-4xl">
           Livraria Encanto

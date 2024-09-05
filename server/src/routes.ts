@@ -10,8 +10,7 @@ import { authPublisherMiddleware } from "./middlewares/authPublisherMiddleware";
 import { CreatePublisherController } from "./controllers/CreatePublisherController";
 import { AuthPublisherController } from "./controllers/AuthPublisherController";
 import { LoginPublisherController } from "./controllers/LoginPublisherController";
-import { CarrinhoController } from "./controllers/CarrinhoController";
-// import { UserPurchaseController } from "./controllers/UserPurchaseController";
+import { BookDetailsController } from "./controllers/BookDetailsController";
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
 
@@ -26,6 +25,10 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
   fastify.get("/list-book", async (req: FastifyRequest, res: FastifyReply) => {
     return new ListBookController().handle(req, res);
+  })
+
+  fastify.get('/book/:id', async (req: FastifyRequest, res: FastifyReply) => {
+    return new BookDetailsController().handle(req,res)
   })
 
   fastify.delete("/delete-book", async (req: FastifyRequest, res: FastifyReply) => {
@@ -55,20 +58,4 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
   fastify.get("/publisher-profile", {preHandler: authPublisherMiddleware}, async (req: FastifyRequest, res: FastifyReply) => {
     return new LoginPublisherController().handle(req, res);
   })
-
-  fastify.post("/carrinho/adicionar", { preHandler: authUserMiddleware }, async (req: FastifyRequest, res: FastifyReply) => {
-   return new CarrinhoController().adicionarAoCarrinho(req, res);
-  });
-
-  fastify.post("/carrinho/remover", { preHandler: authUserMiddleware }, async (req: FastifyRequest, res: FastifyReply) => {
-    return new CarrinhoController().removerDoCarrinho(req, res);
-  });
-
-  fastify.get("/carrinho", { preHandler: authUserMiddleware }, async (req: FastifyRequest, res: FastifyReply) => {
-    return new CarrinhoController().visualizarCarrinho(req, res);
-  });
-
-  fastify.post("/carrinho/finalizar", { preHandler: authUserMiddleware }, async (req: FastifyRequest, res: FastifyReply) => {
-    return new CarrinhoController().finalizarCompra(req, res);
-  });
 }

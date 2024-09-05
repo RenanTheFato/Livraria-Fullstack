@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { api } from "../service/api";
 import Header from "../components/HeaderGeneral"
 import "../index.css";
+import { useNavigate } from "react-router-dom";
 
 interface BookProps {
   id: number;
@@ -13,6 +14,7 @@ interface BookProps {
 function HomePage() {
   const [books, setBooks] = useState<BookProps[]>([]);
   const [displayedItems, setDisplayedItems] = useState<BookProps[]>([]);
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -36,6 +38,10 @@ function HomePage() {
     }
   }
 
+  function handleBookClick(id: number) {
+    navigate(`/book/${id}`);
+  }
+
   return (
     <div className="w-full min-h-screen bg-stone-300 md:max-2xl">
       <Header />
@@ -56,7 +62,8 @@ function HomePage() {
               <article
                 key={books.id}
                 className="h-full w-72 bg-white rounded p-2 relative shadow-xl shadow-indigo-300
-              hover:scale-105 duration-200"
+              hover:scale-105 duration-200 cursor-pointer"
+              onClick={() => handleBookClick(books.id)}
               >
                 <p>
                   <span className="font-medium">Título: </span>
