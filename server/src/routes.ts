@@ -11,6 +11,7 @@ import { CreatePublisherController } from "./controllers/CreatePublisherControll
 import { AuthPublisherController } from "./controllers/AuthPublisherController";
 import { LoginPublisherController } from "./controllers/LoginPublisherController";
 import { BookDetailsController } from "./controllers/BookDetailsController";
+import { UploadBookImageController } from "./controllers/UploadBookImageController";
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
 
@@ -22,6 +23,10 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
   fastify.post("/insert-book", async (req: FastifyRequest, res: FastifyReply) => {
     return new CreateBookController().handle(req, res);
   })
+
+  fastify.post('/upload-book-image/:id_livro', async (req: FastifyRequest, res: FastifyReply) => {
+    return new UploadBookImageController().handle(req, res);
+  });
 
   fastify.get("/list-book", async (req: FastifyRequest, res: FastifyReply) => {
     return new ListBookController().handle(req, res);

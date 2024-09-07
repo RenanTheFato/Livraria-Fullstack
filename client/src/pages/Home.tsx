@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { api } from "../service/api";
-import Header from "../components/HeaderGeneral"
+import Header from "../components/HeaderGeneral";
 import "../index.css";
 import { useNavigate } from "react-router-dom";
 
@@ -9,13 +9,13 @@ interface BookProps {
   titulo: string;
   autor: string;
   editora: string;
+  imagem: string; // Adicione este campo
 }
 
 function HomePage() {
   const [books, setBooks] = useState<BookProps[]>([]);
   const [displayedItems, setDisplayedItems] = useState<BookProps[]>([]);
   const navigate = useNavigate();
-
 
   useEffect(() => {
     loadBooks();
@@ -58,24 +58,32 @@ function HomePage() {
 
         <div className="flex justify-center items-center py-10">
           <section className="w-11/12 h-72 flex flex-row space-x-10 py-2 px-2 rounded-xl bg-gradient-to-t from-slate-200 to-slate-300">
-            {displayedItems.map((books) => (
+            {displayedItems.map((book) => (
               <article
-                key={books.id}
-                className="h-full w-72 bg-white rounded p-2 relative shadow-xl shadow-indigo-300
-              hover:scale-105 duration-200 cursor-pointer"
-              onClick={() => handleBookClick(books.id)}
+                key={book.id}
+                className="h-full w-72 bg-white rounded p-2 relative shadow-xl shadow-indigo-300 hover:scale-105 duration-200 cursor-pointer"
+                onClick={() => handleBookClick(book.id)}
               >
+                {book.imagem && (
+                  <div className="flex justify-center mb-2">
+                    <img
+                      src={`http://localhost:3333/uploads/${book.imagem}`}
+                      alt={book.titulo}
+                      className="max-w-32 h-auto object-contain rounded"
+                    />
+                  </div>
+                )}
                 <p>
                   <span className="font-medium">Título: </span>
-                  {books.titulo}
+                  {book.titulo}
                 </p>
                 <p>
                   <span className="font-medium">Autor: </span>
-                  {books.autor}
+                  {book.autor}
                 </p>
                 <p>
                   <span className="font-medium">Editora: </span>
-                  {books.editora}
+                  {book.editora}
                 </p>
               </article>
             ))}
