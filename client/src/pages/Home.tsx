@@ -69,7 +69,7 @@ function HomePage() {
                     <img
                       src={`http://localhost:3333/uploads/${book.imagem}`}
                       alt={book.titulo}
-                      className="max-w-32 h-auto object-contain rounded"
+                      className="max-w-32 h-44 object-contain rounded"
                     />
                   </div>
                 )}

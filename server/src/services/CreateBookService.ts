@@ -1,8 +1,8 @@
 import { databaseConnect } from "../database/connection";
 import 'dotenv'
 
-export type BookCategory = 'acao'|'aventura'|'fantasia'|'ficcao'|'suspense'|'drama'|'terror'
-|'infantil'|'gibi'|'biografia'|'historia'|'misterio';
+export type BookCategory = 'Ação' | 'Aventura' | 'Fantasia' | 'Ficção'  |'Suspense' | 'Drama' | 'Terror' | 'Infantil' | 'Gibi' | 
+  'Biografia' | 'Mistério' | 'Esportivo';
 
 interface CreateBookProps{
   titulo: string,
@@ -21,10 +21,10 @@ class CreateBookService{
     console.log('Rota de Criação Executada!');
 
     try {
-    const [result] = await databaseConnect.query(`INSERT INTO ${process.env.TABLE1} (titulo, descricao, autor, categoria,classificacao, paginas, editora, ano_pub, preco) 
+    const [result] = await databaseConnect.query(`INSERT INTO ${process.env.TABLE1} (titulo, descricao, autor, categoria, classificacao, paginas, editora, ano_pub, preco) 
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`, [titulo, descricao, autor, categoria ,classificacao, paginas, editora, ano_pub, preco] );
 
-      const referenceId = (result as any).referenceId;
+      const referenceId = (result as any).insertId;
 
       console.log(result)
 

@@ -5,7 +5,7 @@ import { z } from 'zod'
 class CreateBookController{
   async handle(req: FastifyRequest, res: FastifyReply){
 
-    const bookCategories = ['acao', 'aventura', 'fantasia', 'ficcao', 'suspense', 'drama', 'terror', 'infantil', 'gibi', 'biografia', 'historia', 'misterio'] as const;
+    const bookCategories = ['Ação' , 'Aventura', 'Fantasia', 'Ficção' ,'Suspense', 'Drama', 'Terror', 'Infantil', 'Gibi', 'Biografia', 'Mistério', 'Esportivo'] as const;
 
     const { titulo, descricao, autor, categoria ,classificacao, paginas, editora, ano_pub, preco } = req.body as {titulo: string, descricao: string, autor: string,  categoria: BookCategory ,classificacao: string, paginas :number, editora: string, ano_pub: number, preco: number};
     const currentYear = new Date().getFullYear();
@@ -30,6 +30,7 @@ class CreateBookController{
     }
     
     const createBook = await createBookService.execute({titulo, descricao, autor, categoria ,classificacao, paginas, editora, ano_pub, preco})
+    return res.status(200).send(createBook);
   }
 }
 

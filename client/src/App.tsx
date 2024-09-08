@@ -6,6 +6,7 @@ import Unauthorized from './pages/Unauthorized';
 import UserDashboard from './pages/UserDashboard';
 import UserHistory from './pages/UserHistory';
 import BookPage from './pages/BookPage';
+import CreateBookForm from './pages/CreateBookPage';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/book/:id" element={<BookPage />}/>
         <Route path="/user-login" element={<LoginUser />} />
         <Route path="/publisher-login" element={<LoginPublisher />}/>
+        <Route path="/form-book" element={<CreateBookForm />}/>
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/user-profile" element={<UserDashboard />}>
           <Route path="user-history" element={<UserHistory />} />
