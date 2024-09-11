@@ -8,14 +8,18 @@ interface BookProps {
   id: number;
   titulo: string;
   autor: string;
+  categoria: string;
   editora: string;
-  imagem: string; // Adicione este campo
+  imagem: string;
 }
 
 function HomePage() {
   const [books, setBooks] = useState<BookProps[]>([]);
   const [displayedItems, setDisplayedItems] = useState<BookProps[]>([]);
+  const [sportsBooks, setSportsBooks] = useState<BookProps[]>([]);
   const navigate = useNavigate();
+
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     loadBooks();
@@ -29,8 +33,11 @@ function HomePage() {
       const randomBooks = data.sort(() => 0.5 - Math.random());
       const booksSelected = randomBooks.slice(0, 4);
 
+      const sports =  data.filter((book) => book.categoria === "Esportivo");
+
       setBooks(data);
       setDisplayedItems(booksSelected);
+      setSportsBooks(sports);
 
       console.log(res.data);
     } catch (error) {
@@ -67,7 +74,7 @@ function HomePage() {
                 {book.imagem && (
                   <div className="flex justify-center mb-2">
                     <img
-                      src={`http://localhost:3333/uploads/${book.imagem}`}
+                      src={`${apiUrl}/uploads/${book.imagem}`}
                       alt={book.titulo}
                       className="max-w-32 h-44 object-contain rounded"
                     />
@@ -89,6 +96,45 @@ function HomePage() {
             ))}
           </section>
         </div>
+
+        <h1 className="font-roboto-italic italic text-2xl mx-14 w-48 h-auto border-b-indigo-600 border-r-transparent border-t-transparent border-l-transparent border-2">
+          Livros Esportivos
+        </h1>
+
+        <div className="flex justify-center items-center py-10">
+          <section className="w-11/12 h-72 flex flex-row space-x-10 py-2 px-2 rounded-xl bg-gradient-to-t from-slate-200 to-slate-300">
+            {sportsBooks.map((book) => (
+              <article
+                key={book.id}
+                className="h-full w-72 bg-white rounded p-2 relative shadow-xl shadow-indigo-300 hover:scale-105 duration-200 cursor-pointer"
+                onClick={() => handleBookClick(book.id)}
+              >
+                {book.imagem && (
+                  <div className="flex justify-center mb-2">
+                    <img
+                      src={`${apiUrl}/uploads/${book.imagem}`}
+                      alt={book.titulo}
+                      className="max-w-32 h-44 object-contain rounded"
+                    />
+                  </div>
+                )}
+                <p>
+                  <span className="font-medium">Título: </span>
+                  {book.titulo}
+                </p>
+                <p>
+                  <span className="font-medium">Autor: </span>
+                  {book.autor}
+                </p>
+                <p>
+                  <span className="font-medium">Editora: </span>
+                  {book.editora}
+                </p>
+              </article>
+            ))}
+          </section>
+        </div>
+
       </div>
     </div>
   );

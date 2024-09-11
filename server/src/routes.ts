@@ -36,6 +36,10 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     return new BookDetailsController().handle(req,res)
   })
 
+  fastify.get("/search-books", async (req: FastifyRequest, res: FastifyReply) => {
+    return new ListBookController().handleSearch(req, res);
+  });
+
   fastify.delete("/delete-book", async (req: FastifyRequest, res: FastifyReply) => {
     return new DeleteBookController().handle(req, res);
   })

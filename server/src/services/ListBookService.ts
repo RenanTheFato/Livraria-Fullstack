@@ -19,6 +19,22 @@ class ListBookService{
     }
 
   }
+
+  async executeSearch(searchTerm: string){
+    try {
+      const query = `
+        SELECT * FROM ${process.env.TABLE1}
+        WHERE titulo LIKE ? OR autor LIKE ?;
+      `;
+      const [results] = await databaseConnect.query(query, [`%${searchTerm}%`, `%${searchTerm}%`]);
+
+      console.log("Consulta de pesquisa executada");
+      return results;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 }
 
 export { ListBookService }

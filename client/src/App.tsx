@@ -7,12 +7,14 @@ import UserDashboard from './pages/UserDashboard';
 import UserHistory from './pages/UserHistory';
 import BookPage from './pages/BookPage';
 import CreateBookForm from './pages/CreateBookPage';
+import SearchResultsPage from './pages/SearchPage'
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/search" element={<SearchResultsPage />} />
         <Route path="/book/:id" element={<BookPage />}/>
         <Route path="/user-login" element={<LoginUser />} />
         <Route path="/publisher-login" element={<LoginPublisher />}/>

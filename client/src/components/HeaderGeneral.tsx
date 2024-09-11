@@ -6,6 +6,7 @@ function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userType, setUserType] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,6 +34,12 @@ function Header() {
     navigate("/");
   };
 
+  function handleSearch() {
+    if (searchQuery.trim()) {
+      navigate(`/search?query=${searchQuery}`);
+    }
+  }
+
   return (
     <header className="bg-cyan-600 shadow-lg md:max-2xl relative">
       <nav className="flex flex-row md:mx-auto items-center">
@@ -45,12 +52,15 @@ function Header() {
         <div className="relative w-1/3 h-10 my-3 mx-8 flex items-center shadow-xl">
           <input
             type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="relative w-full py-2 pr-36 pl-5 rounded-xl border-2 outline-none border-black placeholder-gray-400 
               placeholder:italic focus:bg-cyan-100 focus:placeholder-black focus:outline-none"
             placeholder="Pesquisar livro..."
           />
           <button
             type="submit"
+            onClick={handleSearch}
             className="absolute w-16 h-full right-0 mx-[0.12rem] bg-indigo-400 outline-none border-2 
               border-r-transparent border-t-transparent border-b-transparent border-l-black flex items-center justify-center rounded-r-xl"
           >
