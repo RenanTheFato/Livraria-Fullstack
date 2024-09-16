@@ -24,9 +24,9 @@ class ListBookService{
     try {
       const query = `
         SELECT * FROM ${process.env.TABLE1}
-        WHERE titulo LIKE ? OR autor LIKE ?;
+        WHERE titulo LIKE ? OR autor LIKE ? OR categoria LIKE ?;
       `;
-      const [results] = await databaseConnect.query(query, [`%${searchTerm}%`, `%${searchTerm}%`]);
+      const [results] = await databaseConnect.query(query, [`%${searchTerm}%`, `%${searchTerm}%`, `%${searchTerm}%`]);
 
       console.log("Consulta de pesquisa executada");
       return results;

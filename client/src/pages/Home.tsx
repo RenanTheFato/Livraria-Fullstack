@@ -49,12 +49,15 @@ function HomePage() {
     navigate(`/book/${id}`);
   }
 
+  function handleSportsBooks(){
+    window.location.href = `/search?query=esportivo`;
+  }
+
   return (
     <div className="w-full min-h-screen bg-stone-300 md:max-2xl">
       <Header />
       <div className="flex justify-center items-center">
-        <section className="w-11/12 h-72 border-3 my-10 border-black bg-indigo-600 flex justify-center items-center">
-          BANNER
+        <section className="w-11/12 h-72 border-3 my-10 bg-[url('./src/assets/2_20240911_155529_0001~2.png')] bg-no-repeat bg-cover border-slate-400 shadow-lg border-2 flex justify-center items-center">
         </section>
       </div>
 
@@ -103,7 +106,7 @@ function HomePage() {
 
         <div className="flex justify-center items-center py-10">
           <section className="w-11/12 h-72 flex flex-row space-x-10 py-2 px-2 rounded-xl bg-gradient-to-t from-slate-200 to-slate-300">
-            {sportsBooks.map((book) => (
+            {sportsBooks.slice(0, 4).map((book) => (
               <article
                 key={book.id}
                 className="h-full w-72 bg-white rounded p-2 relative shadow-xl shadow-indigo-300 hover:scale-105 duration-200 cursor-pointer"
@@ -133,6 +136,15 @@ function HomePage() {
               </article>
             ))}
           </section>
+        </div>
+
+        <div className="flex justify-center py-4">
+          <button
+            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+            onClick={handleSportsBooks}
+          >
+            Ver todos os livros esportivos
+          </button>
         </div>
 
       </div>

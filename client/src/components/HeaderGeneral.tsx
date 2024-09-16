@@ -16,6 +16,10 @@ function Header() {
     setUserType(type);
   }, []);
 
+  function handleHome(){
+    window.location.href = "/"
+  }
+
   function handleDropdownToggle() {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -44,9 +48,9 @@ function Header() {
     <header className="bg-cyan-600 shadow-lg md:max-2xl relative">
       <nav className="flex flex-row md:mx-auto items-center">
         <div>
-          <img className="w-16 mx-3" src="/src/assets/logo.svg" alt="Logo" />
+          <img className="w-16 mx-3 cursor-pointer" src="/src/assets/logo.svg" alt="Logo" onClick={handleHome}/>
         </div>
-        <h2 className="font-roboto-black text-sky-50 text-[1.5rem] my-3 mx-10 md:text-4xl">
+        <h2 className="font-roboto-black text-sky-50 text-[1.5rem] my-3 mx-10 md:text-4xl cursor-pointer" onClick={handleHome}>
           Livraria Encanto
         </h2>
         <div className="relative w-1/3 h-10 my-3 mx-8 flex items-center shadow-xl">

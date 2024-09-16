@@ -1,8 +1,11 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { BsFillBellFill } from "react-icons/bs";
+import { TbTruckDelivery } from "react-icons/tb";
 import { MdHistory } from 'react-icons/md';
 import { TbLogout2 } from "react-icons/tb";
 import { FaUser } from 'react-icons/fa';
+import { FaStar } from "react-icons/fa";
 import { userAuth } from '../hooks/UserAuthHook';
 
 function UserDashboard() {
@@ -41,10 +44,24 @@ function UserDashboard() {
                   </div>
                 </Link>
 
-                <Link to="/page2">
+                <Link to="user-notify">
                   <div className="flex items-center space-x-2 w-full h-20 border-b-cyan-600 border-b-2 border-t-cyan-600 border-t-2 bg-white cursor-pointer">
-                    <MdHistory className="text-2xl mx-2" />
-                    <span className="font-roboto text-lg">Página 2</span>
+                    <BsFillBellFill className="text-2xl mx-2" />
+                    <span className="font-roboto text-lg">Notificações</span>
+                  </div>
+                </Link>
+
+                <Link to="user-orders">
+                  <div className="flex items-center space-x-2 w-full h-20 border-b-cyan-600 border-b-2 border-t-cyan-600 border-t-2 bg-white cursor-pointer">
+                    <TbTruckDelivery className="text-2xl mx-2" />
+                    <span className="font-roboto text-lg">Rastrear Pedidos</span>
+                  </div>
+                </Link>
+
+                <Link to="user-votes">
+                  <div className="flex items-center space-x-2 w-full h-20 border-b-cyan-600 border-b-2 border-t-cyan-600 border-t-2 bg-white cursor-pointer">
+                    <FaStar className="text-2xl mx-2" />
+                    <span className="font-roboto text-lg">Suas Avaliações</span>
                   </div>
                 </Link>
 
