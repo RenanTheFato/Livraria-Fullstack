@@ -19,7 +19,7 @@ class BookDetailsService {
   async execute(id: number): Promise<Book | null> {
     try {
       const [rows] = await databaseConnect.query<RowDataPacket[]>(
-        'SELECT * FROM livros WHERE id = ?',
+        `SELECT * FROM ${process.env.TABLE1} WHERE id = ?`,
         [id]
       );
 
