@@ -9,7 +9,6 @@ import { publisherAuth } from '../hooks/PublisherAuthHook';
 
 function PublisherDashboard() {
   const publisherData = publisherAuth();
-  console.log(publisherData)
   const navigate = useNavigate();
 
 

@@ -83,10 +83,8 @@ function LoginPublisher() {
 
       if (res.status === 200) {
         const { token } = res.data.publisher;
-        console.log(res.data)
         localStorage.setItem("authToken", token);
         localStorage.setItem("userType", "publisher");
-        console.log(token);
         window.location.href = "/";
       }
     } catch (err) {
