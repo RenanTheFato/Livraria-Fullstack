@@ -15,7 +15,6 @@ interface BookProps {
 }
 
 function HomePage() {
-  const [books, setBooks] = useState<BookProps[]>([]);
   const [displayedItems, setDisplayedItems] = useState<BookProps[]>([]);
   const [sportsBooks, setSportsBooks] = useState<BookProps[]>([]);
   const [mysteryBooks, setMysteryBooks] = useState<BookProps[]>([]);
@@ -40,7 +39,6 @@ function HomePage() {
       const mystery =  data.filter((book) => book.categoria === "Mistério");
       const kids =  data.filter((book) => book.categoria === "Infantil");
 
-      setBooks(data);
       setDisplayedItems(booksSelected);
       setSportsBooks(sports);
       setMysteryBooks(mystery);
