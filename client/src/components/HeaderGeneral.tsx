@@ -48,7 +48,7 @@ function Header() {
     <header className="bg-cyan-600 shadow-lg md:max-2xl relative">
       <nav className="flex flex-row md:mx-auto items-center">
         <div>
-          <img className="w-16 mx-3 cursor-pointer" src="/src/assets/logo.svg" alt="Logo" onClick={handleHome}/>
+          <img className="w-16 mx-3 cursor-pointer" src="/logo.svg" alt="Logo" onClick={handleHome}/>
         </div>
         <h2 className="font-roboto-black text-sky-50 text-[1.5rem] my-3 mx-10 md:text-4xl cursor-pointer" onClick={handleHome}>
           Livraria Encanto

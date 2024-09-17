@@ -68,7 +68,7 @@ function HomePage() {
     <div className="w-full min-h-screen bg-stone-300 md:max-2xl">
       <Header />
       <div className="flex justify-center items-center">
-        <section className="w-11/12 h-72 border-3 my-10 bg-[url('./src/assets/2_20240911_155529_0001~2.png')] bg-no-repeat bg-cover border-slate-400 shadow-lg border-2 flex justify-center items-center">
+        <section className="w-11/12 h-72 border-3 my-10 bg-[url('/2_20240911_155529_0001~2.png')] bg-no-repeat bg-cover border-slate-400 shadow-lg border-2 flex justify-center items-center">
         </section>
       </div>
 
