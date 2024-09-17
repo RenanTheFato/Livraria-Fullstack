@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../service/api';
 
-export function userAuth() {
-  const [userData, setUserData] = useState<any>(null);
+export function publisherAuth() {
+  const [publisherData, setUserData] = useState<any>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,13 +16,13 @@ export function userAuth() {
         return;
       }
 
-      if (type != 'user') {
+      if (type != 'publisher') {
         navigate('/unauthorized');
         return;
       }
 
       try {
-        const response = await api.get('/user-profile', {
+        const response = await api.get('/publisher-profile', {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -39,5 +39,5 @@ export function userAuth() {
     fetchUserData();
   }, [navigate]);
 
-  return userData;
+  return publisherData;
 }

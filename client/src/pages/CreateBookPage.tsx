@@ -1,7 +1,10 @@
 import { useState, useRef, FormEvent, useEffect } from "react";
 import { api } from "../service/api";
+import { publisherAuth } from "../hooks/PublisherAuthHook";
 
 function CreateBookForm() {
+  const publisherData = publisherAuth();
+
   const tituloRef = useRef<HTMLInputElement | null>(null);
   const descricaoRef = useRef<HTMLInputElement | null>(null);
   const autorRef = useRef<HTMLInputElement | null>(null);
@@ -21,6 +24,7 @@ function CreateBookForm() {
   const [redirecting, setRedirecting] = useState(false);
   const [secondsLeft, setSecondsLeft] = useState(5);
   const [precoError, setPrecoError] = useState('');
+
 
 
   const handlePrecoChange = () => {
@@ -44,7 +48,7 @@ function CreateBookForm() {
         setSecondsLeft((prev) => {
           if (prev <= 1) {
             clearInterval(interval);
-            window.location.href = "/";
+            window.location.href = "/publisher-profile";
           }
           return prev - 1;
         });
@@ -221,9 +225,10 @@ function CreateBookForm() {
                 <label className="block text-gray-700">Editora</label>
                 <input
                   type="text"
-                  placeholder="Editora"
+                  disabled
+                  value={publisherData ? publisherData.nome : 'Carregando...'}
                   ref={editoraRef}
-                  className="w-full p-2 border border-gray-300 rounded-md"
+                  className="w-full p-2 border border-gray-300 rounded-md cursor-not-allowed"
                 />
               </div>
               <div>
