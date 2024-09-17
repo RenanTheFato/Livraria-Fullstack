@@ -2,14 +2,58 @@
   "version": 2,
   "builds": [
     {
-      "src": "./server.ts",
+      "src": "src/server.ts",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "./routes.ts",
-      "dest": "/"
+      "src": "/insert-book",
+      "dest": "/src/server.ts"
+    },
+    {
+      "src": "/upload-book-image/:id_livro",
+      "dest": "/src/server.ts"
+    },
+    {
+      "src": "/list-book",
+      "dest": "/src/server.ts"
+    },
+    {
+      "src": "/book/:id",
+      "dest": "/src/server.ts"
+    },
+    {
+      "src": "/search-books",
+      "dest": "/src/server.ts"
+    },
+    {
+      "src": "/delete-book",
+      "dest": "/src/server.ts"
+    },
+    {
+      "src": "/create-user",
+      "dest": "/src/server.ts"
+    },
+    {
+      "src": "/login-user",
+      "dest": "/src/server.ts"
+    },
+    {
+      "src": "/user-profile",
+      "dest": "/src/server.ts"
+    },
+    {
+      "src": "/create-publisher",
+      "dest": "/src/server.ts"
+    },
+    {
+      "src": "/login-publisher",
+      "dest": "/src/server.ts"
+    },
+    {
+      "src": "/publisher-profile",
+      "dest": "/src/server.ts"
     }
   ]
 }
