@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "server/src/server.ts",
+      "src": "src/server.ts",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/(insert-book|upload-book-image|list-book|book|search-books|delete-book|create-user|login-user|user-profile|create-publisher|login-publisher|publisher-profile)/(.*)",
-      "dest": "/server/src/routes.ts"
+      "src": "/(.*)",
+      "dest": "/src/server.ts"
     }
   ],
   "installCommand": "npm install",
