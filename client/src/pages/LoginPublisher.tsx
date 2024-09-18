@@ -61,7 +61,7 @@ function LoginPublisher() {
           "signupSuccessMessage",
           "Conta criada com sucesso! Faça login agora."
         );
-        navigate('/publisher-login');
+        navigate('/');
       }
     } catch (err) {
       console.error(err);
