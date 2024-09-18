@@ -53,15 +53,15 @@ function HomePage() {
   }
 
   function handleSportsBooks(){
-    window.location.href = `/search?query=esportivo`;
+   navigate(`/search?query=esportivo`);
   }
 
   function handleMysteryBooks(){
-    window.location.href = `/search?query=mistério`;
+   navigate(`/search?query=mistério`);
   }
 
   function handleKidsBooks(){
-    window.location.href = `/search?query=infantil`;
+   navigate(`/search?query=infantil`);
   }
 
   return (
