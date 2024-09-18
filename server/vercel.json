@@ -2,13 +2,6 @@
   "version": 2,
   "builds": [
     {
-      "src": "client/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    },
-    {
       "src": "server/package.json",
       "use": "@vercel/node",
       "config": {
@@ -20,10 +13,6 @@
     {
       "src": "/(insert-book|upload-book-image|list-book|book|search-books|delete-book|create-user|login-user|user-profile|create-publisher|login-publisher|publisher-profile)/(.*)",
       "dest": "/server/dist/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/client/$1"
     }
   ]
 }
