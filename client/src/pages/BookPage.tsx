@@ -22,6 +22,8 @@ function BookPage() {
   const { id } = useParams<{ id: string }>();
   const [book, setBook] = useState<BookProps | null>(null);
 
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
+
   useEffect(() => {
     async function loadBook() {
       try {
@@ -54,7 +56,7 @@ function BookPage() {
           <div className="flex-none w-1/3 pr-6">
             {book.imagem && (
               <img
-                src={`http://localhost:3333/uploads/${book.imagem}`}
+                src={`${apiUrl}/uploads/${book.imagem}`}
                 alt={book.titulo}
                 className="w-full h-auto rounded-lg"
               />
