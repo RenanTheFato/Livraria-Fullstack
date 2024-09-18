@@ -1,5 +1,6 @@
 import { useState, useRef, FormEvent, useEffect } from "react";
 import { api } from "../service/api";
+import { useNavigate } from "react-router-dom";
 
 function LoginUser() {
   const [isLogin, setIsLogin] = useState(true);
@@ -8,6 +9,7 @@ function LoginUser() {
   const [name, setName] = useState("");
   const [error, setError] = useState<{ [key: string]: string }>({});
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const nameRef = useRef<HTMLInputElement | null>(null);
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -52,7 +54,7 @@ function LoginUser() {
           "signupSuccessMessage",
           "Conta criada com sucesso! Faça login agora."
         );
-        window.location.reload();
+        navigate('user-login');
       }
     } catch (err) {
       console.error(err);
