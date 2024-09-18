@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "server/package.json",
+      "src": "./server.ts",
       "use": "@vercel/node",
       "config": {
         "includeFiles": "server/dist/**/*"
@@ -12,7 +12,7 @@
   "routes": [
     {
       "src": "/(insert-book|upload-book-image|list-book|book|search-books|delete-book|create-user|login-user|user-profile|create-publisher|login-publisher|publisher-profile)/(.*)",
-      "dest": "/server/dist/$1"
+      "dest": "./dist/$1"
     }
   ]
 }
