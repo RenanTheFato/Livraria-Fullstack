@@ -1,16 +1,18 @@
 {
-  "installCommand": "npm install",
   "version": 2,
   "builds": [
     {
-      "src": "src/server.ts",
+      "src": "server/src/server.ts",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(insert-book|upload-book-image|list-book|book|search-books|delete-book|create-user|login-user|user-profile|create-publisher|login-publisher|publisher-profile)/(.*)",
-      "dest": "/src/routes.ts"
+      "dest": "/server/src/routes.ts"
     }
-  ]
+  ],
+  "installCommand": "npm install",
+  "buildCommand": "npm run build",
+  "startCommand": "npm run start"
 }
