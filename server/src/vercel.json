@@ -1,4 +1,5 @@
 {
+  "installCommand": "npm install",
   "version": 2,
   "builds": [
     {
@@ -9,7 +10,7 @@
   "routes": [
     {
       "src": "/(insert-book|upload-book-image|list-book|book|search-books|delete-book|create-user|login-user|user-profile|create-publisher|login-publisher|publisher-profile)/(.*)",
-      "dest": "/src/routes.ts"
+      "dest": "src/routes.ts"
     }
   ]
 }
