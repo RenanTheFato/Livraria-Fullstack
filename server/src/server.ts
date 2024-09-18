@@ -19,7 +19,9 @@ const start = async () => {
 
   try {
     await server.listen({ 
-      port: process.env.PORT ? Number(process.env.PORT) : 3333 });
+      host: '0.0.0.0',
+      port: process.env.PORT ? Number(process.env.PORT) : 3333 
+    });
   } catch (error) {
     console.error(error);
     process.exit(1);
