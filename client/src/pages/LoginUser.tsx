@@ -54,7 +54,7 @@ function LoginUser() {
           "signupSuccessMessage",
           "Conta criada com sucesso! Faça login agora."
         );
-        navigate('user-login');
+        navigate('/user-login');
       }
     } catch (err) {
       console.error(err);
