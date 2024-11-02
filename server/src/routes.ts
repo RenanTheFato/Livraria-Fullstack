@@ -12,6 +12,8 @@ import { AuthPublisherController } from "./controllers/AuthPublisherController";
 import { LoginPublisherController } from "./controllers/LoginPublisherController";
 import { BookDetailsController } from "./controllers/BookDetailsController";
 import { UploadBookImageController } from "./controllers/UploadBookImageController";
+import { CartController } from "./controllers/CartController";
+import { OrderController } from "./controllers/OrderController";
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
 
@@ -67,4 +69,23 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
   fastify.get("/publisher-profile", {preHandler: authPublisherMiddleware}, async (req: FastifyRequest, res: FastifyReply) => {
     return new LoginPublisherController().handle(req, res);
   })
+
+  // Rotas de Carrinho
+  fastify.post("/carrinho/adicionar", { preHandler: authUserMiddleware }, async (req, res) => {
+    return new CartController().adicionarItem(req, res);
+  });
+
+  fastify.get("/carrinho/listar", { preHandler: authUserMiddleware }, async (req, res) => {
+    return new CartController().verCarrinho(req, res);
+  });
+
+  fastify.delete("/carrinho/remover", { preHandler: authUserMiddleware }, async (req, res) => {
+    return new CartController().removerItem(req, res);
+  });
+
+  // Rotas de Pedido
+  fastify.post("/pedido/finalizar", { preHandler: authUserMiddleware }, async (req, res) => {
+    return new OrderController().criarPedido(req, res);
+  });
+
 }
