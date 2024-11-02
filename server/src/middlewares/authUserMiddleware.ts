@@ -1,4 +1,4 @@
-import { FastifyRequest, FastifyReply, HookHandlerDoneFunction } from 'fastify'
+import { FastifyRequest, FastifyReply } from 'fastify'
 import { databaseConnect } from '../database/connection'
 import jwt from 'jsonwebtoken'
 import 'dotenv'
@@ -8,7 +8,7 @@ type JwtPayLoad = {
 }
 
 const authUserMiddleware =
-  async (req: FastifyRequest, res: FastifyReply, done: HookHandlerDoneFunction) => {
+  async (req: FastifyRequest, res: FastifyReply) => {
     const { authorization } = req.headers;
 
     if (!authorization) {
@@ -30,7 +30,7 @@ const authUserMiddleware =
 
     req.user = userLogged
 
-    done()
+    return;
   }
 
 export { authUserMiddleware }
