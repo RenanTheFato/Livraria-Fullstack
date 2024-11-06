@@ -14,6 +14,7 @@ import PublisherCash from './pages/PublisherCash';
 import BookPage from './pages/BookPage';
 import CreateBookForm from './pages/CreateBookPage';
 import SearchResultsPage from './pages/SearchPage'
+import CheckoutPage from './pages/CheckoutPage';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/user-login" element={<LoginUser />} />
         <Route path="/publisher-login" element={<LoginPublisher />}/>
         <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
 
         <Route path="/user-profile" element={<UserDashboard />}>
           <Route path="user-history" element={<UserHistory />} />

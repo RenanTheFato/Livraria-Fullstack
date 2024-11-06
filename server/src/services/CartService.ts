@@ -1,40 +1,36 @@
 import { databaseConnect } from "../database/connection";
+import 'dotenv';
 
 class CartService {
   async adicionarItemAoCarrinho(usuarioId: number, produtoId: number, quantidade: number) {
-    // Verifica se o carrinho do usuário já existe
     const [carrinho] = await databaseConnect.query(
-      `SELECT id FROM carrinhos WHERE usuario_id = ?`, 
+      `SELECT id FROM ${process.env.TABLE3} WHERE usuario_id = ?`,
       [usuarioId]
     );
     let carrinhoId = (carrinho as any)[0]?.id;
 
-    // Se o carrinho não existir, cria um novo
     if (!carrinhoId) {
       const [resultado] = await databaseConnect.query(
-        `INSERT INTO carrinhos (usuario_id) VALUES (?)`, 
+        `INSERT INTO ${process.env.TABLE3} (usuario_id) VALUES (?)`,
         [usuarioId]
       );
       carrinhoId = (resultado as any).insertId;
     }
 
-    // Verifica se o produto já existe no carrinho
     const [itemExistente] = await databaseConnect.query(
-      `SELECT id, quantidade FROM itens_carrinho WHERE carrinho_id = ? AND produto_id = ?`,
+      `SELECT id, quantidade FROM ${process.env.TABLE4} WHERE carrinho_id = ? AND produto_id = ?`,
       [carrinhoId, produtoId]
     );
 
     if ((itemExistente as any).length > 0) {
-      // Atualiza a quantidade do item existente
       const novoTotal = (itemExistente as any)[0].quantidade + quantidade;
       await databaseConnect.query(
-        `UPDATE itens_carrinho SET quantidade = ? WHERE id = ?`,
+        `UPDATE ${process.env.TABLE4} SET quantidade = ? WHERE id = ?`,
         [novoTotal, (itemExistente as any)[0].id]
       );
     } else {
-      // Insere o novo item no carrinho
       await databaseConnect.query(
-        `INSERT INTO itens_carrinho (carrinho_id, produto_id, quantidade) VALUES (?, ?, ?)`,
+        `INSERT INTO ${process.env.TABLE4} (carrinho_id, produto_id, quantidade) VALUES (?, ?, ?)`,
         [carrinhoId, produtoId, quantidade]
       );
     }
@@ -43,21 +39,30 @@ class CartService {
   }
 
   async obterCarrinhoPorUsuarioId(usuarioId: number) {
-    const [itensCarrinho] = await databaseConnect.query(
-      `SELECT ic.id, ic.produto_id, ic.quantidade 
-       FROM itens_carrinho ic 
-       JOIN carrinhos c ON ic.carrinho_id = c.id 
-       WHERE c.usuario_id = ?`,
-      [usuarioId]
-    );
-    
-    return itensCarrinho;
+    try {
+      const [itensCarrinho] = await databaseConnect.query(
+        `SELECT ic.id, ic.produto_id, ic.quantidade, p.titulo, p.preco, p.imagem, 
+                e.cnpj, (ic.quantidade * p.preco) AS preco_total 
+         FROM ${process.env.TABLE4} ic 
+         JOIN ${process.env.TABLE3} c ON ic.carrinho_id = c.id 
+         JOIN ${process.env.TABLE1} p ON ic.produto_id = p.id 
+         JOIN ${process.env.TABLE5} e ON p.editora = e.nome 
+         WHERE c.usuario_id = ?`,
+        [usuarioId]
+      );
+
+      console.log("Itens do carrinho com CNPJ da editora:", itensCarrinho);
+
+      return itensCarrinho;
+    } catch (error) {
+      console.error("Erro ao obter itens do carrinho:", error);
+      throw error;
+    }
   }
 
   async removerItemDoCarrinho(itemCarrinhoId: number) {
-    // Remove o item específico com base no ID do item no carrinho
     await databaseConnect.query(
-      `DELETE FROM itens_carrinho WHERE id = ?`,
+      `DELETE FROM ${process.env.TABLE4} WHERE id = ?`,
       [itemCarrinhoId]
     );
   }

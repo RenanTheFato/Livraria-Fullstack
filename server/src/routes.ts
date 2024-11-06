@@ -88,4 +88,7 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     return new OrderController().criarPedido(req, res);
   });
 
+  fastify.get("/pedido/visualizar", { preHandler: authUserMiddleware }, async (req, res) => {
+    return new OrderController().visualizarPedido(req, res);
+  });
 }

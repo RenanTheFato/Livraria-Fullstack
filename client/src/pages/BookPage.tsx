@@ -37,13 +37,21 @@ function BookPage() {
     loadBook();
   }, [id]);
 
+  async function handleAddToCart() {
+    try {
+      await api.post(`/carrinho/adicionar`, { produtoId: book?.id, quantidade: 1 }, { headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` } });
+      alert("Item adicionado ao carrinho!");
+    } catch (error) {
+      console.error("Erro ao adicionar item ao carrinho", error);
+      alert("Erro ao adicionar item ao carrinho");
+    }
+  }
+
   if (!book) {
     return (
       <main className="flex flex-col w-full min-h-screen justify-center items-center space-y-10 bg-slate-300">
         <AiOutlineLoading3Quarters className="animate-spin text-9xl" />
-        <span className="font-roboto text-xl">
-          Carregando informações do livro...
-        </span>
+        <span className="font-roboto text-xl">Carregando informações do livro...</span>
       </main>
     );
   }
@@ -55,11 +63,7 @@ function BookPage() {
         <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-4xl mx-4 flex">
           <div className="flex-none w-1/3 pr-6">
             {book.imagem && (
-              <img
-                src={`${apiUrl}/uploads/${book.imagem}`}
-                alt={book.titulo}
-                className="w-full h-auto rounded-lg"
-              />
+              <img src={`${apiUrl}/uploads/${book.imagem}`} alt={book.titulo} className="w-full h-auto rounded-lg" />
             )}
           </div>
           <div className="flex-1">
@@ -71,6 +75,12 @@ function BookPage() {
             <p className="text-lg mb-2"><span className="font-semibold">Número de Páginas:</span> {book.paginas}</p>
             <p className="text-lg mb-2"><span className="font-semibold">Preço:</span> R${book.preco}</p>
             <p className="text-lg mt-4"><span className="font-semibold">Descrição:</span> {book.descricao}</p>
+            <button
+              onClick={handleAddToCart}
+              className="mt-4 px-4 py-2 bg-cyan-600 text-white rounded-lg shadow-md hover:bg-cyan-700"
+            >
+              Adicionar ao Carrinho
+            </button>
           </div>
         </div>
       </main>
